@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    image: nginx
+    networks:
+      - inception
+    ports:
+      - "443:443"
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    image: mariadb
+    networks:
+      - inception
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    image: wordpress
+    networks:
+      - inception
+    ports:
+      - "9000:9000"
+    env_file:
+      - .env
+    volumes:
+      - vol_wp:/var/www/html
+
+volumes:
+  vol_wp:
+    driver_opts:
+      device: ~/data/wp
+
+networks:
+  inception:
+    driver: bridge
