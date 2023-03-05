@@ -9,7 +9,10 @@ services:
       - inception
     ports:
       - "443:443"
+    volumes:
+      - vol_wp:/var/www/html
   mariadb:
+    restart: on-failure
     container_name: mariadb
     build: ./requirements/mariadb
     image: mariadb
@@ -19,6 +22,8 @@ services:
       - "3306:3306"
     env_file:
       - .env
+    volumes:
+      - vol_mariadb:/var/lib/mysql
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress
@@ -31,12 +36,25 @@ services:
       - .env
     volumes:
       - vol_wp:/var/www/html
-
+  adminer:
+    container_name: adminer
+    build: ./requirements/bonus/Adminer
+    image: adminer
+    networks:
+      - inception
+    ports:
+      - "8080:8080"
 volumes:
   vol_wp:
     driver_opts:
-      device: ~/data/wp
-
+      type: none
+      o: bind
+      device: /Users/kid-bouh/data/wp
+  vol_mariadb:
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/kid-bouh/data/mariadb
 networks:
   inception:
     driver: bridge
