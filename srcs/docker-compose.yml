@@ -44,6 +44,22 @@ services:
       - inception
     ports:
       - "8080:8080"
+  ftp:
+    container_name: ftp
+    build: ./requirements/bonus/ftp
+    image: ftp
+    networks:
+      - inception
+    env_file:
+      - .env
+    ports:
+      - "60000-60005:60000-60005"
+      - "21:21"
+      - "20:20"
+    volumes:
+      - vol_wp:/home/kidbouh/
+    depends_on:
+      - wordpress
 volumes:
   vol_wp:
     driver_opts:
