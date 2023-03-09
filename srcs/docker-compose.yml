@@ -76,6 +76,14 @@ services:
       - wordpress
     ports:
       - "6379:6379"
+  website:
+    container_name: website
+    build: ./requirements/bonus/website
+    image: website
+    networks:
+      - inception
+    ports:
+      - "1337:80"
 volumes:
   vol_wp:
     driver_opts:
