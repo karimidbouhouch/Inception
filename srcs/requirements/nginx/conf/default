@@ -1,7 +1,7 @@
 server {
     listen 443 http2 ssl;
 
-    server_name localhost;
+    server_name kid-bouh.42.fr localhost;
 
     ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
 	ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;

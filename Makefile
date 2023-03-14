@@ -1,15 +1,15 @@
 all :
-	mkdir -p ~/data/wp
-	-mkdir  ~/data/mariadb
+	-mkdir -p /home/kid-bouh/data/wp
+	-mkdir /home/kid-bouh/data/mariadb
 	docker-compose -f ./srcs/docker-compose.yml up --build 
 
 clean:
-	docker-compose down -f ./srcs/docker-compose.yml
+	docker-compose -f ./srcs/docker-compose.yml down -v
 
 fclean: clean
-	rm -rf ~/data
+	-rm -rf /home/kid-bouh/data
 	-docker volume rm $$(docker volume ls -q)
-	-docker network rm $$(docker network ls -q)
+	docker network rm $$(docker network ls -q)
 
 prune:
 	-docker system prune -af

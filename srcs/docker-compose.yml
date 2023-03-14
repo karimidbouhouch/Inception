@@ -13,6 +13,7 @@ services:
       - vol_wp:/var/www/html
     depends_on:
       - wordpress
+    restart: on-failure
   mariadb:
     restart: on-failure
     container_name: mariadb
@@ -27,6 +28,7 @@ services:
     volumes:
       - vol_mariadb:/var/lib/mysql
   wordpress:
+    restart: on-failure
     container_name: wordpress
     build: ./requirements/wordpress
     image: wordpress
@@ -41,6 +43,7 @@ services:
     depends_on:
       - mariadb
   adminer:
+    restart: on-failure
     container_name: adminer
     build: ./requirements/bonus/Adminer
     image: adminer
@@ -51,6 +54,7 @@ services:
     depends_on:
       - mariadb
   ftp:
+    restart: on-failure
     container_name: ftp
     build: ./requirements/bonus/ftp
     image: ftp
@@ -63,10 +67,11 @@ services:
       - "21:21"
       - "20:20"
     volumes:
-      - vol_wp:/home/kidbouh/
+      - vol_wp:/home/kidbouh
     depends_on:
       - wordpress
   redis:
+    restart: on-failure
     container_name: redis
     build: ./requirements/bonus/redis
     image: redis
@@ -84,17 +89,40 @@ services:
       - inception
     ports:
       - "1337:80"
+  cadvisor:
+    restart: on-failure
+    container_name: cadvisor
+    build: ./requirements/bonus/cadv
+    image: cadvisor
+    networks:
+      - inception
+    ports:
+      - "3030:8080"
+    volumes:
+      - "/var/lib/docker/:/var/lib/docker:ro"
+      - "/:/rootfs:ro"
+      - "/sys:/sys:ro"
+      - "/var/run:/var/run:ro"
+    # depends_on:
+    #   - website
+    #   - adminer
+    #   - nginx
+    #   - mariadb
+    #   - redis
+    #   - ftp
+    #   - wordpress
+
 volumes:
   vol_wp:
     driver_opts:
       type: none
       o: bind
-      device: /Users/kid-bouh/data/wp
+      device: /home/kid-bouh/data/wp
   vol_mariadb:
     driver_opts:
       type: none
       o: bind
-      device: /Users/kid-bouh/data/mariadb
+      device: /home/kid-bouh/data/mariadb
 networks:
   inception:
     driver: bridge

@@ -1,11 +1,9 @@
 #! /bin/bash
-
 service vsftpd start;
 adduser --gecos "" $USER_FTP;
 echo "$USER_FTP:$PASS_FTP" | chpasswd;
-mkdir -p /home/$USER_FTP/;
-chown "$USER_FTP:$USER_FTP" /home/$USER_FTP/;
-
+mkdir -p /home/$USER_FTP;
+chown "$USER_FTP:$USER_FTP" /home/$USER_FTP;
 echo "$USER_FTP" >> /etc/vsftpd.userlist
 echo "anonymous_enable=NO" >> /etc/vsftpd.conf;
 echo "local_enable=YES" >> /etc/vsftpd.conf;
