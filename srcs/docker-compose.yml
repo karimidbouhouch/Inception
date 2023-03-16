@@ -67,7 +67,7 @@ services:
       - "21:21"
       - "20:20"
     volumes:
-      - vol_wp:/home/kidbouh
+      - vol_wp:/home/kid-bouh
     depends_on:
       - wordpress
   redis:
@@ -103,15 +103,6 @@ services:
       - "/:/rootfs:ro"
       - "/sys:/sys:ro"
       - "/var/run:/var/run:ro"
-    # depends_on:
-    #   - website
-    #   - adminer
-    #   - nginx
-    #   - mariadb
-    #   - redis
-    #   - ftp
-    #   - wordpress
-
 volumes:
   vol_wp:
     driver_opts:
