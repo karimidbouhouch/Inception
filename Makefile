@@ -8,8 +8,7 @@ clean:
 
 fclean: clean
 	-rm -rf /home/kid-bouh/data
-	-docker volume rm $$(docker volume ls -q)
-	docker network rm $$(docker network ls -q)
+	-docker volume rm $(docker volume ls -q)
 
 prune:
 	-docker system prune -af

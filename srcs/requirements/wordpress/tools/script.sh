@@ -9,9 +9,8 @@ wp core install --url="$DOMAIN_NAME" --title="1337 coding school" --admin_name="
 wp plugin install redis-cache --activate --path="/var/www/html" --allow-root
 wp redis enable --path="/var/www/html" --allow-root
 chown -R www-data:www-data /var/www/html
+wp user create $WP_AUTHOR_USER 'kid-bouh-author@student.1337.ma' --user_pass=$WP_AUTHOR_PASSWORD --role=administrator --path="/var/www/html" --allow-root
 service php7.3-fpm start
 service php7.3-fpm stop
 chmod -R 777 /var/www/html
 php-fpm7.3 -F
-
-
