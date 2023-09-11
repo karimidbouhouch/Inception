@@ -1,2 +1,2 @@
 # Inception
-The objective of this project is to expand the understanding of system administration through the utilization of Docker. This involves virtualizing multiple Docker images and deploying them within an individualized virtual machine environment.
+This project aims to broaden knowledge of system administration by using Docker. Several Docker images will be virtualized, created within a new personal virtual machine.
